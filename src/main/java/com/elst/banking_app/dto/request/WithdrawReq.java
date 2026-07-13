@@ -1,4 +1,4 @@
-package com.elst.banking_app.dto;
+package com.elst.banking_app.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

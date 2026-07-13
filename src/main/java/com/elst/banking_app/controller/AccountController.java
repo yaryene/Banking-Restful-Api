@@ -1,14 +1,16 @@
 package com.elst.banking_app.controller;
 
 import com.elst.banking_app.dto.AccountDto;
-import com.elst.banking_app.dto.DepositReq;
-import com.elst.banking_app.dto.WithdrawReq;
+import com.elst.banking_app.dto.request.DepositReq;
+import com.elst.banking_app.dto.request.WithdrawReq;
+import com.elst.banking_app.dto.response.ApiResponse;
 import com.elst.banking_app.service.AccountService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +33,18 @@ public class AccountController {
     public ResponseEntity<AccountDto> getAccountById(@PathVariable Long id) {
         AccountDto account = accountService.getAccountById(id);
         return new ResponseEntity<>(account, HttpStatus.OK);
+    }
+    @GetMapping("/{id}/details")
+    public ResponseEntity<ApiResponse<AccountDto>> getAccountByIdWithDetails(@PathVariable Long id) {
+        AccountDto account = accountService.getAccountById(id);
+        ApiResponse<AccountDto> response = new ApiResponse<>(
+                HttpStatus.OK.value(),
+                true,
+                null,
+                account,
+                LocalDateTime.now()
+        );
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @GetMapping()
     public ResponseEntity<List<AccountDto>> getAllAccounts() {
@@ -64,8 +78,15 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> deleteAccount(@PathVariable Long id) {
         accountService.deleteAccount(id);
-        return  ResponseEntity.ok("Account deleted successfully");
+        ApiResponse<Void> response = new ApiResponse<>(
+                HttpStatus.OK.value(),
+                true,
+                "Account deleted successfully",
+                null,
+                LocalDateTime.now()
+        );
+        return  ResponseEntity.ok(response);
     }
 }
