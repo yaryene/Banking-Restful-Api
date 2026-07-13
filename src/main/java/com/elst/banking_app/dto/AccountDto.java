@@ -1,13 +1,13 @@
 package com.elst.banking_app.dto;
-
-import lombok.Data;
-
-@Data
-public class AccountDto {
-    private  Long id;
-    private String accountHolderName;
-    private double balance;
-}
 //
-//public record AccountDto(Long id, String accountHolderName, double balance) {
+//import lombok.Data;
+//
+//@Data
+//public class AccountDto {
+//    private  Long id;
+//    private String accountHolderName;
+//    private double balance;
 //}
+
+public record AccountDto(Long id, String accountHolderName, double balance) {
+}
