@@ -8,3 +8,6 @@ public class AccountDto {
     private String accountHolderName;
     private double balance;
 }
+//
+//public record AccountDto(Long id, String accountHolderName, double balance) {
+//}
